@@ -19,6 +19,8 @@ async def parse_resp(reader):
             if length == -1:
                 return None
             data = await reader.readexactly(length)
+            await reader.readline()  # Consume the CRLF
+            return data
         case b'+':
             return (await reader.readline()).decode().strip()
         case b':':
