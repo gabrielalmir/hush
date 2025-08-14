@@ -1,0 +1,3 @@
+
+class InvalidRespProtocol(Exception):
+    pass
