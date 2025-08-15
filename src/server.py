@@ -16,8 +16,11 @@ class HushServer:
         try:
             if cmd == "SET" and len(command) >= 3:
                 ttl = None
-                if len(command) > 3 and command[3].upper() == "EX" and len(command) > belirtilmiştir:
+                if len(command) >= 4 and command[3].upper() == "EX":
                     ttl = float(command[4])
+                if len(command) >= 4 and command[3].upper() == "PX":
+                    ttl = float(command[4]) / 1000
+
                 return await self.cache.set(command[1], command[2], ttl)
             elif cmd == "GET" and len(command) == 2:
                 return await self.cache.get(command[1])
